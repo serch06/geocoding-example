@@ -1,0 +1,52 @@
+<div class="row">
+  <div class="col col-md-8 offset-md-2">
+    <!-- UI components go here -->
+
+    <!-- Primer fila -->
+    <!-- Inputs -->
+    <div class="row">
+      <div class="col pr-0">
+        <input type="search" class="form-control" [(ngModel)]="address" (keydown.enter)="findAddress()"
+          placeholder="Ingrese una dirección" [disabled]="isWorking">
+      </div>
+      <div class="col-auto ml-auto">
+        <button style="margin-right: 10px;" class="btn btn-primary mr-1" (click)="findAddress()" [disabled]="isWorking || !address?.length">
+          <i class="bi bi-map mr-md-1"></i> <span class="d-none d-md-inline-block">Buscar dirección</span>
+        </button>
+        <button class="btn btn-primary" (click)="getCurrentLocation()" [disabled]="isWorking">
+          <i class="bi bi-geo mr-md-1"></i> <span class="d-none d-md-inline-block">Encontrarme</span>
+        </button>
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- Segunda fila -->
+    <div class="row">
+      <div class="col-12 col-md-6 pr-md-0">
+        <!-- Muestra el resultado del geocoding -->
+        <div id="info" class="shadow-sm rounded border p-3 h-100">
+          <h5>Dirección Formato</h5>
+          <p>
+            {{ formattedAddress?.length ? formattedAddress : 'N/A' }}
+          </p>
+          <h5>Coordenadas</h5>
+          <p class="mb-0">
+            Latitud: {{ locationCoords ? locationCoords?.lat() : 'N/A' }}<br>
+            Longitud: {{ locationCoords ? locationCoords?.lng() : 'N/A' }}
+          </p>
+        </div>
+      </div>
+      <div class="col-12 col-md-6">
+        <div class="google_map_container shadow-sm rounded mt-3 mt-md-0">
+          <google-map [zoom]="mapZoom" [center]="mapCenter" [options]="mapOptions">
+            <map-marker #marker="mapMarker" [position]="mapCenter" [options]="markerOptions"
+              (mapClick)="openInfoWindow(marker)" (mapDragend)="onMapDragEnd($event)">
+            </map-marker>
+            <map-info-window>{{ markerInfoContent }}</map-info-window>
+          </google-map>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

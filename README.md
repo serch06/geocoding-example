@@ -1,4 +1,5 @@
 # GeocodingEjemplo
+El objetivo es construir una pequeña App en Angular que consuma el servicio web de Geocoding API de google.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.1.2.
 
